@@ -1,0 +1,60 @@
+{% extends "components/chart_statistics.html" %}
+{% block filter_form %}
+<div>
+  {% include "widgets/select.html" with id='year' label='Choose a year' %}
+</div>
+&nbsp;
+<div>
+   {% include "widgets/select.html" with id='supplier' label='Choose a supplier' %}
+</div>
+<div>
+   {% include "widgets/button.html" with id='submit' type='submit' value='Load' %}
+</div>
+{% endblock %}
+
+{% block chart %} 
+<div class="column half_size">
+  {% include "widgets/chart_bar.html" with id='dataChart' %}
+</div>
+<div class="column half_size">
+  {% include "widgets/chart_bar.html" with id='quantityChart' %}
+</div>
+<div>{{ my_param }}</div>
+{% endblock %}
+
+{% block js %}
+<script>
+  $(document).ready(function() {
+    var pyChart = new PyChart();
+    var dataChart = pyChart.get_chart('dataChart');
+    var quantityChart = pyChart.get_chart('quantityChart');
+    var dataEndPoint = pyChart.get_end_point(`/view/chart/suppliers/supplier_chart/`);
+    var quantityEndPoint = pyChart.get_end_point(`/view/chart/suppliers/supplier_quantity_chart/`);
+    pyChart.get_filter("/view/chart/suppliers/supplier_chart_filter/filter-options/", (jsonResponse) => {
+        jsonResponse.years.forEach(option => {
+          $("#year").append(new Option(option, option));
+        });
+        jsonResponse.suppliers.forEach(option => {
+          $("#supplier").append(new Option(option, option));
+        });
+        // Load data for the first option
+        const year = $("#year").children().first().val();
+        const supplier = $("#supplier").children().first().val();
+        
+        pyChart.loadChart(dataChart, dataEndPoint + `?year=${year}&supplier=${supplier}`);
+        pyChart.loadChart(quantityChart, quantityEndPoint + `?year=${year}&supplier=${supplier}`);
+    });
+  
+
+    $("#filterForm").on("submit", (event) => {
+      event.preventDefault();
+
+      const year = $("#year").val();
+      const supplier = $("#supplier").val();
+
+      pyChart.loadChart(dataChart, dataEndPoint + `?year=${year}&supplier=${supplier}`);
+      pyChart.loadChart(quantityChart, quantityEndPoint + `?year=${year}&supplier=${supplier}`);
+    });
+  });
+</script>
+{% endblock %}
