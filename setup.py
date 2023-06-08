@@ -15,5 +15,8 @@ setup(
         # other dependencies
         'Django==4.1.7'
     ],
+    package_data={
+        'django_admin_chart': ['templates/*.html']
+    }
     # other optional arguments
 )
