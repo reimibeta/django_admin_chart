@@ -5,7 +5,7 @@ from django_admin_chart.chart import chart
 
 
 class ChartTestAdmin(admin.ModelAdmin):
-    list_display = ('id', 'value')
+    list_display = ('id', 'value', 'date', )
     list_display_links = ['value', 'id', ]
     list_per_page = 25
 
