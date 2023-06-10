@@ -16,7 +16,11 @@ setup(
         'Django==4.1.7'
     ],
     package_data={
-        'django_admin_chart': ['templates/*.html']
+        'django_admin_chart': [
+            'templates/*.html',
+            'templates/components/*.html',
+            'templates/widgets/*.html'
+        ]
     }
     # other optional arguments
 )

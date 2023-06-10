@@ -18,9 +18,11 @@ class ChartTestAdmin(admin.ModelAdmin):
         # chart()
         extra_context = extra_context or {}
         extra_context['my_param'] = 'my_value'
-        self.change_list_template = 'django_admin_chart.duel_bar_chart.html'
+        # self.change_list_template = 'django_admin_chart/duel_bar_chart.html'
         # self.change_list_template = 'file.html'
-        # self.change_list_template = '<h1>test</h1>'
+        # self.change_list_template = '../folders/file.html'
+        self.change_list_template = 'duel_bar_chart.html'
+        # django_admin_chart
         # type_chart = duel_bar_chart, duel_pie_chart, duel_one_bar_one_pie, bar_chart, pie_chart
         return super().changelist_view(request, extra_context=extra_context)
 
