@@ -20,7 +20,9 @@ setup(
             # 'templates/*.html',
             # 'templates/components/*.html',
             # 'templates/widgets/*.html'
-            'templates'
+            'templates/django_admin_chart/*.html',
+            'templates/django_admin_chart/widgets/*.html',
+            'templates/django_admin_chart/components/*.html',
         ]
     }
     # other optional arguments

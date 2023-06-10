@@ -1,25 +1,25 @@
-{% extends "components/chart_statistics.html" %}
+{% extends "django_admin_chart/components/chart_statistics.html" %}
 {% block filter_form %}
 <div>
-  {% include "widgets/select.html" with id='year' label='Choose a year' %}
+  {% include "django_admin_chart/widgets/select.html" with id='year' label='Choose a year' %}
 </div>
 &nbsp;
 <div>
-   {% include "widgets/select.html" with id='supplier' label='Choose a supplier' %}
+   {% include "django_admin_chart/widgets/select.html" with id='supplier' label='Choose a supplier' %}
 </div>
 <div>
-   {% include "widgets/button.html" with id='submit' type='submit' value='Load' %}
+   {% include "django_admin_chart/widgets/button.html" with id='submit' type='submit' value='Load' %}
 </div>
 {% endblock %}
 
 {% block chart %} 
 <div class="column half_size">
-  {% include "widgets/chart_bar.html" with id='dataChart' %}
+  {% include "django_admin_chart/widgets/chart_bar.html" with id='dataChart' %}
 </div>
 <div class="column half_size">
-  {% include "widgets/chart_bar.html" with id='quantityChart' %}
+  {% include "django_admin_chart/widgets/chart_bar.html" with id='quantityChart' %}
 </div>
-<div>{{ my_param }}</div>
+<!--<div>{{ my_param }}</div>-->
 {% endblock %}
 
 {% block js %}
