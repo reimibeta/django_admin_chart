@@ -1,5 +1,4 @@
-from utils.chart.chart_base import MONTHS
-from utils.chart.chart_render import ChartRender
+from django_admin_chart.chart_render import ChartRender
 
 
 class StatisticsData:
