@@ -44,6 +44,29 @@ class TestStatisticsData(StatisticsData):
 class TestStatisticsDataView(StatisticsChart):
     ss = TestStatisticsData()
 
+    #
+    def get_dataset(self, *args, **kwargs):
+        year = kwargs.get('year')
+        data_request_dict = self.chart.get_year_dict()
+        # print(year)
+        for data in self.ss.get_data(year=year):
+            data_request_dict[self.chart.months[data['month'] - 1]] = round(data['amount'], 2)  # r = revenue
+        # print(self.ss.get_data(year=year))
+        # print(data_request_dict)
+        data_dataset = self.chart.dataset(
+            data_request_dict,
+            # self.ss.get_data(year=year),
+            'Test',
+            ChartColor.COLOR_SUCCESS
+        )
+        return self.chart.chart(
+            f"Product supply in {year}",
+            [data_dataset],
+            data_request_dict.keys(),
+            {}
+        )
+    #
+
     def get_filter_chart(self, request):
         return self.chart.filter(self.ss.get_filter())
 
