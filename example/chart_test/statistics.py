@@ -31,10 +31,14 @@ class TestStatisticsData(StatisticsData):
         #     data = data.filter(supply_product__supplier__name=kwargs.get("supplier"))
         grouped_data = data.annotate(month=ExtractMonth('date')) \
             .values('month') \
-            .annotate(amount=Sum('digit'))\
+            .annotate(amount=Sum('digit')) \
             .values('month', 'amount').order_by('month')
         # print(kwargs.get("year"))
         return grouped_data
+
+    # def get_dataset(self, *args, **kwargs):
+    #     for data in kwargs.get('data'):
+    #         kwargs.get('data')[self.chart.months[data['month'] - 1]] = round(data['amount'], 2)  # r = revenue
 
 
 class TestStatisticsDataView(StatisticsChart):
@@ -46,43 +50,20 @@ class TestStatisticsDataView(StatisticsChart):
     # @staff_member_required
     def get_data_chart(self, request):
         year = request.GET['year']
-        # if request.method == 'GET' and 'supplier' in request.GET:
-        #     supplier = request.GET['supplier']
-        # else:
-        #     supplier = ""
-
-        # complete_request_dict = self.chart.get_year_dict()
-        # pending_request_dict = self.chart.get_year_dict()
-
-        # for data in self.ss.get_data(year=year, supplier=supplier):
-        #     if data['status'] == "COMPLETED":
-        #         complete_request_dict[self.chart.months[data['month'] - 1]] = round(data['amount'], 2)
-        #     if data['status'] == "PENDING":
-        #         pending_request_dict[self.chart.months[data['month'] - 1]] = round(data['amount'], 2)
         data_request_dict = self.chart.get_year_dict()
-        # complete_dataset = self.chart.dataset(
-        #     complete_request_dict,
-        #     "Total supply complete amount in USD",
-        #     ChartColor.COLOR_SUCCESS,
-        # )
-        # pending_dataset = self.chart.dataset(
-        #     pending_request_dict,
-        #     "Total supply pending amount in USD",
-        #     ChartColor.COLOR_DANGER
-        # )
         # print(year)
         for data in self.ss.get_data(year=year):
             data_request_dict[self.chart.months[data['month'] - 1]] = round(data['amount'], 2)  # r = revenue
+        # print(self.ss.get_data(year=year))
         # print(data_request_dict)
         data_dataset = self.chart.dataset(
             data_request_dict,
+            # self.ss.get_data(year=year),
             'Test',
             ChartColor.COLOR_SUCCESS
         )
         return self.chart.chart(
             f"Product supply in {year}",
-            # [complete_dataset, pending_dataset],
-            # complete_request_dict.keys(),
             [data_dataset],
             data_request_dict.keys(),
             {}
