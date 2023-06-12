@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 
 from django_admin_chart.chart_base import MONTHS
+from django_admin_chart.chart_color import ChartColor
 
 
 class ChartRender:

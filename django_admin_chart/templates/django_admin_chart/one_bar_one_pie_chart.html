@@ -16,8 +16,11 @@
 {% endblock %}
 
 {% block chart %} 
-<div class="column full_size">
-  {% include "django_admin_chart/widgets/chart_bar.html" with id='chart' %}
+<div class="column" style="width: 80%;">
+  {% include "django_admin_chart/widgets/chart_bar.html" with id='barChart' %}
+</div>
+<div class="column" style="width: 20%;">
+  {% include "django_admin_chart/widgets/chart_pie.html" with id='pieChart' %}
 </div>
 {% endblock %}
 
@@ -25,11 +28,12 @@
 <script>
   $(document).ready(function() {
     var pyChart = new PyChart();
-    var chart = pyChart.get_chart('chart');
-    var chartEndPoint = pyChart.get_end_point(`{{ url }}`);
+    var barChart = pyChart.get_chart('barChart');
+    var pieChart = pyChart.get_chart('pieChart', "pie");
+    var barChartEndPoint = pyChart.get_end_point(`{{ url }}`);
+    var pieChartEndPoint = pyChart.get_end_point(`{{ url2 }}`);
     pyChart.get_filter("{{ url_filter }}", (jsonResponse) => {
         {% if select_filter %}
-
             jsonResponse.years.forEach(option => {
                 $("#year").append(new Option(option, option));
             });
@@ -41,29 +45,32 @@
 
             const select = $("#{{ select_filter }}").children().first().val();
             //
-            pyChart.loadChart(chart, chartEndPoint + `?year=${year}&{{ select_filter }}=${select}`);
-
+            pyChart.loadChart(barChart, barChartEndPoint + `?year=${year}&{{ select_filter }}=${select}`);
+            pyChart.loadChart(pieChart, pieChartEndPoint + `?year=${year}&{{ select_filter }}=${select}`);
         {% else %}
             jsonResponse.years.forEach(option => {
                 $("#year").append(new Option(option, option));
             });
             const year = $("#year").children().first().val();
-            pyChart.loadChart(chart, chartEndPoint + `?year=${year}`);
+            pyChart.loadChart(barChart, barChartEndPoint + `?year=${year}`);
+            pyChart.loadChart(pieChart, pieChartEndPoint + `?year=${year}`);
         {% endif %}
     });
+  
 
     $("#filterForm").on("submit", (event) => {
       event.preventDefault();
       {% if select_filter %}
         const year = $("#year").val();
         const select = $("#{{ select_filter }}").val();
-        pyChart.loadChart(chart, chartEndPoint + `?year=${year}&{{ select_filter }}=${select}`);
+        pyChart.loadChart(barChart, barChartEndPoint + `?year=${year}&{{ select_filter }}=${select}`);
+        pyChart.loadChart(pieChart, pieChartEndPoint + `?year=${year}&{{ select_filter }}=${select}`);
       {% else %}
         const year = $("#year").val();
-        pyChart.loadChart(chart, chartEndPoint + `?year=${year}`);
+        pyChart.loadChart(barChart, barChartEndPoint + `?year=${year}`);
+        pyChart.loadChart(pieChart, pieChartEndPoint + `?year=${year}`);
       {% endif %}
     });
-
   });
 </script>
 {% endblock %}
