@@ -11,6 +11,7 @@ class StatisticsData:
 
 
 class StatisticsChart:
+    data = None
     chart = ChartRender()
 
     def get_filter_chart(self, request):

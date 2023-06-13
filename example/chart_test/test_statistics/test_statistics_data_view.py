@@ -42,14 +42,15 @@ class TestStatisticsData(StatisticsData):
 
 
 class TestStatisticsDataView(StatisticsChart):
-    ss = TestStatisticsData()
+    # ss = TestStatisticsData()
+    data = TestStatisticsData()
 
     #
     def get_dataset(self, *args, **kwargs):
         year = kwargs.get('year')
         data_request_dict = self.chart.get_year_dict()
         # print(year)
-        for data in self.ss.get_data(year=year):
+        for data in self.data.get_data(year=year):
             data_request_dict[self.chart.months[data['month'] - 1]] = round(data['amount'], 2)  # r = revenue
         # print(self.ss.get_data(year=year))
         # print(data_request_dict)
@@ -68,7 +69,7 @@ class TestStatisticsDataView(StatisticsChart):
     #
 
     def get_filter_chart(self, request):
-        return self.chart.filter(self.ss.get_filter())
+        return self.chart.filter(self.data.get_filter())
 
     # @staff_member_required
     def get_data_chart(self, request):
@@ -76,7 +77,7 @@ class TestStatisticsDataView(StatisticsChart):
         value = request.GET['value']
         data_request_dict = self.chart.get_year_dict()
         # print(year)
-        for data in self.ss.get_data(year=year, value=value):
+        for data in self.data.get_data(year=year, value=value):
             data_request_dict[self.chart.months[data['month'] - 1]] = round(data['amount'], 2)  # r = revenue
         # print(self.ss.get_data(year=year))
         # print(data_request_dict)

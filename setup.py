@@ -17,9 +17,6 @@ setup(
     ],
     package_data={
         'django_admin_chart': [
-            # 'templates/*.html',
-            # 'templates/components/*.html',
-            # 'templates/widgets/*.html'
             'templates/django_admin_chart/*.html',
             'templates/django_admin_chart/widgets/*.html',
             'templates/django_admin_chart/components/*.html',
