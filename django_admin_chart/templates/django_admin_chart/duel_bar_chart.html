@@ -41,7 +41,7 @@
             const year = $("#year").children().first().val();
             //
             jsonResponse.{{ select_filter|add:"s" }}.forEach(option => {
-                $("#{{ select_filter }}").append(new Option(option, option));
+                $("#{{ select_filter }}").append(new Option(option.name, option.id));
             });
 
             const select = $("#{{ select_filter }}").children().first().val();

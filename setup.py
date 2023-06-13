@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django_admin_chart',
-    version='1.0.0',
+    version='1.0.1',
     description='django admin chart',
     long_description='django admin chart',
     author='ReimiBeta',

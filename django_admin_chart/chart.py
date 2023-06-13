@@ -25,11 +25,11 @@ class ChartAdmin(admin.ModelAdmin):
         return super().changelist_view(request, extra_context=extra_context)
 
 
-class SingleChartAdmin(ChartAdmin):
+class SingleBarChartAdmin(ChartAdmin):
     chart_template = 'django_admin_chart/one_bar_chart.html'
 
 
-class DuelChartAdmin(ChartAdmin):
+class DuelBarChartAdmin(ChartAdmin):
     chart_template = 'django_admin_chart/duel_bar_chart.html'
 
 
