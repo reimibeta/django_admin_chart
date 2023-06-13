@@ -2,12 +2,12 @@ from setuptools import setup, find_packages
 
 setup(
     name='django_admin_chart',
-    version='1.0.1',
+    version='1.0.2',
     description='django admin chart',
     long_description='django admin chart',
     author='ReimiBeta',
     author_email='reimi846@gmail.com',
-    url='https://github.com/reimibeta/django_html_render',
+    url='https://github.com/reimibeta/django_admin_chart',
     license='MIT',
     packages=find_packages(),
     # py_modules=['image_compress',],
