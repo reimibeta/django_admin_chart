@@ -1,9 +1,3 @@
-from django.contrib.admin.views.decorators import staff_member_required
-from django.db.models import Sum, F, Case, When, DecimalField
-from django.db.models.functions import ExtractMonth, ExtractYear
-from django.http import JsonResponse
-from django.shortcuts import render
-from django_admin_chart.chart_color import ChartColor
 from django_admin_chart.statistics import StatisticsData, StatisticsChart
 from chart_test.models import ChartTest
 
