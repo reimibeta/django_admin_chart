@@ -3,7 +3,6 @@ from django.http import JsonResponse
 from django_admin_chart.chart_base import MONTHS
 from django_admin_chart.chart_color import ChartColor
 
-
 class ChartRender:
     months = MONTHS
 
@@ -16,11 +15,12 @@ class ChartRender:
         return year_dict
 
     def dataset(self, data_dict, label=None, color=None):
-        # print(data_dict.values())
+
         if not label:
             label = ""
         if not color:
             color = ChartColor.COLOR_PRIMARY
+
         return {
             'label': f'{label}',
             'backgroundColor': color,
@@ -32,6 +32,7 @@ class ChartRender:
         return JsonResponse(filter_dict)
 
     def chart(self, title, datasets, key, extra=None):
+
         return JsonResponse(
             {
                 'title': f'{title}',
@@ -45,6 +46,7 @@ class ChartRender:
 
     # data is an array
     def chart_pie(self, title, labels, colors, data, extra):
+
         return JsonResponse({
             'title': title,
             'data': {
