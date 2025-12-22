@@ -117,6 +117,12 @@ class PyChart {
         chart.options.title.display = true;
         chart.data.labels = labels;
         datasets.forEach(dataset => {
+          // console.log(parseFloat(dataset.data.data));
+          // console.log(dataset.data);
+          // dataset.data.forEach(data => {
+          //   console.log(data);
+          //   console.log(parseFloat(data));
+          // });
           chart.data.datasets.push(dataset);
         });
         chart.update();
